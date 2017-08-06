@@ -9,10 +9,24 @@ var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
 
+
 app.use(express.static(publicPath));
 
 io.on('connection', (socket)=>{
     console.log('New user connected.');
+
+    socket.emit('newMessage', {
+      from: 'Your chat server',
+      text: 'Ready to chat',
+      createdAt: new Date()
+    });
+
+    socket.on('createMessage', (newMessage)=>{
+        var createdNow = new Date();
+        newMessage.createdAt = createdNow;
+        console.log('createMessage received:', newMessage);
+        socket.emit('newMessage', newMessage);
+    });
 
     socket.on('disconnect', ()=>{
       console.log('Client disconnected from Server.');
