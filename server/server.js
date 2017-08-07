@@ -17,7 +17,13 @@ io.on('connection', (socket)=>{
 
     socket.emit('newMessage', {
       from: 'Your chat server',
-      text: 'Ready to chat',
+      text: 'Welcome - You are ready to chat',
+      createdAt: new Date()
+    });
+
+    socket.broadcast.emit('newMessage', {
+      from: 'Your chat server',
+      text: 'A new user has joined the chat',
       createdAt: new Date()
     });
 
@@ -25,7 +31,7 @@ io.on('connection', (socket)=>{
         var createdNow = new Date();
         newMessage.createdAt = createdNow;
         console.log('createMessage received:', newMessage);
-        socket.broadcast.emit('newMessage', newMessage);
+        io.emit('newMessage', newMessage);
     });
 
     socket.on('disconnect', ()=>{
