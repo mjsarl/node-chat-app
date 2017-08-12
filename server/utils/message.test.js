@@ -9,7 +9,7 @@ describe('generateMessage', ()=>{
 
       expect(res.from).toMatch(fromTxt);
       expect(res.text).toMatch(textTxt);
-      //expect(res.createdAt).toBeA('date');
+      expect(res.createdAt).toBeA('number');
 
   });
 });
@@ -24,7 +24,7 @@ describe('generateLocationMessage', ()=>{
 
       expect(res.from).toMatch(fromTxt);
       expect(res.url).toMatch(textURL);
-      //expect(res.createdAt).toBeA('date');
+      expect(res.createdAt).toBeA('number');
 
   });
 });
