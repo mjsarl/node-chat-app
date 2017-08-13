@@ -17,20 +17,20 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 
 io.on('connection', (socket)=>{
-    console.log('New user connected.');
+    //console.log('New user connected.');
 
     socket.emit('newMessage', generateMessage('Your chat server','Welcome - You are ready to chat'));
 
     socket.broadcast.emit('newMessage', generateMessage('Your chat server', 'A new user has joined the chat'));
 
     socket.on('createMessage', (newMessage, cb)=>{
-        console.log('createMessage received:', newMessage);
+        //console.log('createMessage received:', newMessage);
         io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
         cb('Received server side');
       });
 
       socket.on('createPositionMessage', (locationMessage)=>{
-        console.log('createPositionMessage received:', locationMessage);
+        //console.log('createPositionMessage received:', locationMessage);
         io.emit('newLocationMessage', generateLocationMessage('Admin', locationMessage.latitude, locationMessage.longitude)
       );
       });
