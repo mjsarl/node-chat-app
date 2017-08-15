@@ -60,7 +60,7 @@ io.on('connection', (socket)=>{
         io.to(user.room).emit('updateUserList', users.getUserList(user.room));
         io.to(user.room).emit('newMessage', generateMessage('Your Chat Server', `${user.name} has left the chat.`));
       }
-      console.log('+++++User Disconnect', socket.id);
+      console.log('++++++ User Disconnect', user);
     });
 });
 
