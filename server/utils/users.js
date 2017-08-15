@@ -9,11 +9,11 @@ class Users {
   }
   removeUser (id) {
     //Returns user that was removed
-    var user = this.users.filter((user)=> user.id === id);
+    var user = this.users.filter((user)=> user.id === id)[0];
     
     if(user) {
-        var newArray = this.users.filter((user)=> user.id !== id);
-        this.users = newArray;    
+        this.users = this.users.filter((user)=> user.id !== id);
+           
     }
     return  user;
   }
