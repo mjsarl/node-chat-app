@@ -53,19 +53,18 @@ io.on('connection', (socket)=>{
       });
   
 
-    socket.on('disconnect', ()=>{
+    socket.on('disconnect', ()=> {
       var user = users.removeUser(socket.id);
       
       if(user){
         io.to(user.room).emit('updateUserList', users.getUserList(user.room));
         io.to(user.room).emit('newMessage', generateMessage('Your Chat Server', `${user.name} has left the chat.`));
       }
+      console.log('+++++User Disconnect', socket.id);
     });
 });
 
-// app.get('/', (req,res)=>{
-//   //res.sendFile(publicPath+'index.html');
-// });
+
 
 server.listen(port, ()=> {
   console.log(`Server is up on port ${port}`);
