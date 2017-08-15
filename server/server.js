@@ -41,16 +41,24 @@ io.on('connection', (socket)=>{
      });
   
     socket.on('createMessage', (newMessage, cb)=>{
-        //console.log('createMessage received:', newMessage);
-        io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
-        cb('Received server side');
-      });
+      var user = users.getUser(socket.id);
+      
+      if (user && isRealstring(newMessage.text)) {
+         io.to(user.room).emit('newMessage', generateMessage(user.name, newMessage.text));
+          cb('Received server side');        
+      } else {
+        cb('error on createMessage:', user);
+      }
+    });
 
-      socket.on('createPositionMessage', (locationMessage)=>{
-        //console.log('createPositionMessage received:', locationMessage);
-        io.emit('newLocationMessage', generateLocationMessage('Admin', locationMessage.latitude, locationMessage.longitude)
-      );
-      });
+    socket.on('createPositionMessage', (locationMessage)=>{
+      var user = users.getUser(socket.id);
+
+      if (user) {
+        io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, locationMessage.latitude, locationMessage.longitude)
+        );
+      }
+    });
   
 
     socket.on('disconnect', ()=> {
