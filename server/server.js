@@ -61,6 +61,7 @@ io.on('connection', (socket)=>{
         io.to(user.room).emit('newMessage', generateMessage('Your Chat Server', `${user.name} has left the chat.`));
       }
       console.log('++++++ User Disconnect', user);
+      console.log('===> DISCONNECT leaves ===>', users.getUserList(user.room));
     });
 });
 
