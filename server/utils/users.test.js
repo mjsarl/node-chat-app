@@ -26,28 +26,28 @@ describe('Users', ()=>{
   it('Should remove a specified user', ()=>{
     var userToRemove = testUsers.users[0]
     var res = testUsers.removeUser(userToRemove.id);
-    expect(res).toEqual([userToRemove]);
+    expect(res).toEqual(userToRemove);
     expect(testUsers.users.length).toBe(2);
   });
   
   it('Should not remove a spurious user id', ()=>{
     var falseIDToRemove = '78799'
     var res = testUsers.removeUser(falseIDToRemove);
-    expect(res.length).toBe(0);
+    expect(res).toNotExist;
     expect(testUsers.users.length).toBe(3);
   });
   
   it('Should find a specified user', ()=>{
     var userID = '87980999';
     var res = testUsers.getUser(userID);
-    expect(res).toEqual([testUsers.users[2]]);
+    expect(res).toEqual(testUsers.users[2]);
     expect(testUsers.users.length).toBe(3);
   });
   
   it('Should not find a spurious user id', ()=>{
     var userID = '879';
     var res = testUsers.getUser(userID);
-    expect(res.length).toBe(0);
+    expect(res).toNotExist;
     expect(testUsers.users.length).toBe(3);
   });
   
